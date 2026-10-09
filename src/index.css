@@ -1,0 +1,62 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f4f5f7; --panel: #fff; --text: #1b1f27; --muted: #5d6675; --border: #d9dde4; --accent: #2563eb; --accent-text: #fff; --err: #b91c1c;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f1115; --panel: #181b22; --text: #e6e8ec; --muted: #9aa1ad; --border: #2b303b; --accent: #3b82f6; --err: #f87171; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); }
+h1 { font-size: 1.5rem; margin: 0; }
+h2 { font-size: 1rem; margin: 0 0 .6rem; }
+.app { max-width: 1400px; margin: 0 auto; padding: 1rem; display: grid; gap: 1rem; grid-template-columns: 1fr; }
+header p { margin: .25rem 0 0; color: var(--muted); }
+header, footer { grid-column: 1 / -1; }
+footer { color: var(--muted); font-size: .85rem; text-align: center; padding: .5rem 0 1rem; }
+@media (min-width: 900px) { .app { grid-template-columns: 290px minmax(0, 1fr); align-items: start; } .controls { position: sticky; top: 1rem; } }
+.controls, .view, .sheets { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+.controls section + section { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+main { display: grid; gap: 1rem; min-width: 0; }
+label { display: grid; gap: .25rem; font-size: .85rem; color: var(--muted); margin-bottom: .6rem; }
+label.check { display: flex; align-items: center; gap: .5rem; color: var(--text); }
+.row { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+input, select, button { font: inherit; color: var(--text); }
+input[type=number], select { width: 100%; padding: .4rem .5rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+input[type=file] { font-size: .8rem; }
+button { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: .4rem .8rem; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .5; cursor: default; }
+button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.viewhead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .6rem; }
+.viewhead h2 { margin: 0; }
+.hint { color: var(--muted); font-size: .8rem; }
+.actions { display: flex; gap: .5rem; }
+.scene { height: min(60vw, 440px); min-height: 280px; border-radius: 8px; background: var(--bg); position: relative; overflow: hidden; }
+.scene canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; margin: .7rem 0 0; }
+.chips button { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .55rem; font-size: .8rem; }
+.chips button.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.chips i { width: .7rem; height: .7rem; border-radius: 50%; display: inline-block; }
+.stats { display: grid; grid-template-columns: auto 1fr; gap: .2rem .8rem; margin: 0; font-size: .9rem; }
+.stats dt { color: var(--muted); } .stats dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.error { color: var(--err); font-size: .85rem; }
+.pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 1rem; }
+.page { margin: 0; }
+.page .svg { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.15); }
+.page svg { display: block; width: 100%; height: auto; cursor: pointer; }
+.page figcaption { display: flex; justify-content: space-between; align-items: center; font-size: .8rem; color: var(--muted); padding-top: .35rem; }
+.page figcaption button { padding: .1rem .5rem; font-size: .75rem; }
+.note { color: var(--muted); font-size: .85rem; margin: .8rem 0 0; }
+@media print {
+  body { background: #fff; }
+  .app { display: block; padding: 0; max-width: none; }
+  header, .controls, .view, footer, .noprint { display: none !important; }
+  .sheets { border: 0; padding: 0; background: none; }
+  .pages { display: block; }
+  .page { width: var(--pw, 100%); break-after: page; page-break-after: always; }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+  .page .svg { border: 0; box-shadow: none; border-radius: 0; }
+  .page svg { width: 100%; height: 100%; }
+}
